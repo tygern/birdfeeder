@@ -1,4 +1,5 @@
 include(
     "applications:birdfeeder-app",
-    "components:feeds"
+    "components:feeds",
+    "databases:feeds"
 )

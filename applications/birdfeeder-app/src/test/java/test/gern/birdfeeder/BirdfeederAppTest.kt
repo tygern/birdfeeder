@@ -17,7 +17,6 @@ class BirdfeederAppTest : Test({
             setDefaultProperties(Properties().apply { setProperty("server.port", "8090")})
             run()
         }
-
     }
 
     after {

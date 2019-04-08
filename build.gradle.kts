@@ -22,4 +22,7 @@ subprojects {
     }
 }
 
-fun Project.isJavaProject() = name != "applications" && name != "components"
+fun Project.isJavaProject() = !listOf(
+    "applications",
+    "components",
+    "databases").contains(name)
