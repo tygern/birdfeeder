@@ -15,6 +15,10 @@ dependencies {
     compile("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
     compile("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     runtime("org.mariadb.jdbc:mariadb-java-client:$mariaDbVersion")
+
+    testCompile(project(":components:test-support"))
+
+    testCompile("org.springframework:spring-test:$springVersion")
 }
 
 tasks.withType<BootRun> {

@@ -13,10 +13,11 @@ class FeedController(
     private val repo: FeedRepository
 ) {
     @PostMapping("/feeds", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun create(@RequestBody feed: FeedEntity): ResponseEntity<FeedEntity> {
-        val record = repo.create(feed.name)
-        return ResponseEntity(feedEntity(record), HttpStatus.CREATED)
-    }
+    fun create(@RequestBody feed: FeedEntity) =
+        when (val result = repo.create(feed.name)) {
+            is Result.Success -> ResponseEntity(feedEntity(result.value), HttpStatus.CREATED)
+            is Result.Failure -> ResponseEntity(result.reason, HttpStatus.UNPROCESSABLE_ENTITY)
+        }
 
     @GetMapping("/feeds", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun list() = repo.list().map(this::feedEntity)

@@ -4,11 +4,12 @@ import io.damo.aspen.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.gern.birdfeeder.feeds.FeedRecord
 import org.gern.birdfeeder.feeds.FeedRepository
-import org.mariadb.jdbc.MariaDbDataSource
+import org.gern.birdfeeder.feeds.Result
+import org.gern.birdfeeder.testsupport.testDataSource
 import org.springframework.jdbc.core.JdbcTemplate
 
 class FeedRepositoryTest : Test({
-    val ds = MariaDbDataSource("jdbc:mysql://localhost:3306/feed_test?user=birdfeeder")
+    val ds = testDataSource()
     val jdbc = JdbcTemplate(ds)
 
     val repo = FeedRepository(ds)
@@ -20,13 +21,18 @@ class FeedRepositoryTest : Test({
     test("create") {
         val result = repo.create("fred")
 
-        assertThat(result).isEqualTo(FeedRecord(name = "fred"))
+        assertThat(result).isEqualTo(Result.Success(FeedRecord(name = "fred")))
         assertThat(repo.list()[0]).isEqualTo(FeedRecord(name = "fred"))
     }
 
     test("create multiple") {
-        repo.create("fred")
-        repo.create("fred")
+        assertThat(repo.create("fred")).isInstanceOfAny(Result.Success::class.java)
+
+        val secondCreateResult = repo.create("fred")
+        assertThat(secondCreateResult).isInstanceOfAny(Result.Failure::class.java)
+        require(secondCreateResult is Result.Failure)
+
+        assertThat(secondCreateResult.reason).isEqualTo("Feed named fred already exists")
     }
 
     test("list") {

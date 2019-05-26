@@ -4,15 +4,15 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import io.damo.aspen.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.gern.birdfeeder.BirdfeederApp
+import org.gern.birdfeeder.testsupport.testRestTemplate
 import org.springframework.boot.SpringApplication
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.http.HttpStatus
-import org.springframework.web.client.RestTemplate
 import java.util.*
 
 class RssApiTest : Test({
     var context: ConfigurableApplicationContext? = null
-    val restTemplate = RestTemplate()
+    val restTemplate = testRestTemplate()
 
     before {
         context = SpringApplication(BirdfeederApp::class.java).run {
