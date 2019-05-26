@@ -17,6 +17,4 @@ class FeedRepository(datasource: DataSource) {
         }
 }
 
-data class FeedRecord(
-    val name: String
-)
+data class FeedRecord(val name: String)

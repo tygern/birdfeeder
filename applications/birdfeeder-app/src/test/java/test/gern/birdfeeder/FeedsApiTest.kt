@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate
 import java.util.*
 
 class FeedsApiTest : Test({
-    var context : ConfigurableApplicationContext? = null
+    var context: ConfigurableApplicationContext? = null
     val restTemplate = RestTemplate()
     val mapper = jacksonObjectMapper()
 
@@ -35,6 +35,7 @@ class FeedsApiTest : Test({
         assertThat(postBody["name"].asText()).isEqualTo("tygern")
 
         val getResponse = restTemplate.getForEntity("http://localhost:8090/feeds", String::class.java)
+        assertThat(getResponse.statusCode).isEqualTo(HttpStatus.OK)
         val getBody = mapper.readTree(getResponse.body)
 
         assertThat(getBody.map { it["name"].asText() }).contains("tygern")

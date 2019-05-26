@@ -4,14 +4,15 @@ plugins {
     id("org.springframework.boot")
     kotlin("plugin.spring")
 }
-
 dependencies {
+    compile(project(":components:rss"))
     compile(project(":components:feeds"))
 
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     compile("org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion")
 
     compile("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    compile("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
     compile("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     runtime("org.mariadb.jdbc:mariadb-java-client:$mariaDbVersion")
 }
