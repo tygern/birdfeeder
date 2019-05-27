@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot")
     kotlin("plugin.spring")
 }
+
 dependencies {
     compile(project(":components:rss"))
     compile(project(":components:feeds"))
@@ -19,10 +20,12 @@ dependencies {
     testCompile(project(":components:test-support"))
 
     testCompile("org.springframework:spring-test:$springVersion")
+    testCompile("com.github.tomakehurst:wiremock-jre8:2.23.2")
 }
 
 tasks.withType<BootRun> {
     environment("SPRING_DATASOURCE_URL", "jdbc:mariadb://localhost:3306/feed?user=birdfeeder")
+    environment("INSTAGRAM_URL", "https://www.instagram.com")
 }
 
 tasks.withType<Test> {

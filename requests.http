@@ -1,0 +1,16 @@
+GET http://localhost:8080
+
+###
+
+POST http://localhost:8080/feeds
+Content-Type: application/json
+
+{
+  "name": "accidentallywesanderson"
+}
+
+###
+
+GET http://localhost:8080/feeds
+
+###

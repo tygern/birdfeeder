@@ -1,4 +1,4 @@
-package org.gern.birdfeeder.feeds
+package org.gern.birdfeeder.result
 
 sealed class Result<T> {
     data class Success<T>(val value: T) : Result<T>()

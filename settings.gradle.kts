@@ -1,6 +1,8 @@
 include(
     "applications:birdfeeder-app",
+    "components:instagram",
     "components:feeds",
+    "components:result",
     "components:rss",
     "components:test-support",
     "databases:feeds"

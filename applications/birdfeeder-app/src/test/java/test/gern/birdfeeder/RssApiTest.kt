@@ -12,11 +12,14 @@ import java.util.*
 
 class RssApiTest : Test({
     var context: ConfigurableApplicationContext? = null
-    val restTemplate = testRestTemplate()
+    val restTemplate = testRestTemplate("http://localhost:8090")
 
     before {
         context = SpringApplication(BirdfeederApp::class.java).run {
-            setDefaultProperties(Properties().apply { setProperty("server.port", "8090") })
+            setDefaultProperties(Properties().apply {
+                setProperty("server.port", "8090")
+                setProperty("instagram.url", "http://example.com")
+            })
             run()
         }
     }

@@ -6,12 +6,15 @@ import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriTemplateHandler
 import java.net.URI
 
-fun testRestTemplate() = RestTemplate().apply {
-    uriTemplateHandler = TestUriTemplateHandler(uriTemplateHandler)
+fun testRestTemplate(rootUrl: String) = RestTemplate().apply {
+    uriTemplateHandler = TestUriTemplateHandler(rootUrl = rootUrl, defaultHandler = uriTemplateHandler)
     errorHandler = TestResponseErrorHandler()
 }
 
-class TestUriTemplateHandler(private val defaultHandler: UriTemplateHandler) : UriTemplateHandler {
+class TestUriTemplateHandler(
+    private val rootUrl: String,
+    private val defaultHandler: UriTemplateHandler
+) : UriTemplateHandler {
     override fun expand(uriTemplate: String, uriVariables: MutableMap<String, *>): URI =
         this.defaultHandler.expand(apply(uriTemplate), uriVariables)
 
@@ -20,7 +23,7 @@ class TestUriTemplateHandler(private val defaultHandler: UriTemplateHandler) : U
 
 
     private fun apply(uriTemplate: String) = if (uriTemplate.startsWith("/", ignoreCase = true)) {
-        "http://localhost:8090$uriTemplate"
+        rootUrl + uriTemplate
     } else {
         uriTemplate
     }
