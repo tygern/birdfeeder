@@ -1,6 +1,6 @@
 create table feed
 (
-    name varchar(255) not null,
+    name varchar(191) not null,
 
     constraint primary key (name)
 )
