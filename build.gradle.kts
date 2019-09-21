@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.31" apply false
-    kotlin("plugin.spring") version "1.3.31" apply false
-    id("org.springframework.boot") version "2.1.3.RELEASE" apply false
+    kotlin("jvm") version "1.3.50" apply false
+    kotlin("plugin.spring") version "1.3.50" apply false
+    id("org.springframework.boot") version "2.1.8.RELEASE" apply false
 }
 
 subprojects {
